@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>제주 4일 여행</title>
+<meta name="description" content="10명, 3박 4일 제주 겨울 여행 계획. 일자별 시간표, 맛집, 카페, 요구사항, 비용, 확인 목록.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: 세로로 읽는 앨범형 계획서.
+   고정 메뉴 -> 요약 -> 1~4일차(사진, 시간표, 장소 정보, 조사한 다른 후보) -> 요구사항 -> 비용 -> 준비물 -> 확인 목록 -> 출처.
+   어르신 가독성 우선: 본문 18px, 높은 대비, 넉넉한 여백. */
+:root {
+  color-scheme: light;
+  --bg: #FBF8F3; --surface: #FFFFFF; --fg: #2B2B2B; --muted: #5C5750; --line: #E4DDD0;
+  --sea: #1F7A8C;   --sea-text: #176472;   --sea-soft: #DCEEF1;
+  --green: #5E8C3A; --green-text: #43691F; --green-soft: #E3EDD8;
+  --orange: #E8832A;--orange-text: #A9500A;--orange-soft: #FBE7D2;
+  --dusk: #9B5FA8;  --dusk-text: #7A4688;  --dusk-soft: #EEDDF1;
+  --warn-bg: #FFF1D6; --warn-fg: #8A4B00;
+  --ok-bg: #E3EDD8; --ok-fg: #2F5A12;
+  --no-bg: #F6DEDA; --no-fg: #8A2A1E;
+  --on-accent: #FFFFFF;
+  --font: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #14181A; --surface: #1D2326; --fg: #F1EEE8; --muted: #B7B1A6; --line: #343C40;
+    --sea: #4FB3C6;   --sea-text: #7FD0E0;   --sea-soft: #173A42;
+    --green: #8CBF63; --green-text: #A9D683; --green-soft: #243420;
+    --orange: #F2A057;--orange-text: #F6B27A;--orange-soft: #43301D;
+    --dusk: #C48BD1;  --dusk-text: #D9A9E4;  --dusk-soft: #3A2641;
+    --warn-bg: #4A3A17; --warn-fg: #FFD58A;
+    --ok-bg: #243420; --ok-fg: #B6E08E;
+    --no-bg: #4A2622; --no-fg: #FFB4A8;
+    --on-accent: #111111;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #14181A; --surface: #1D2326; --fg: #F1EEE8; --muted: #B7B1A6; --line: #343C40;
+  --sea: #4FB3C6;   --sea-text: #7FD0E0;   --sea-soft: #173A42;
+  --green: #8CBF63; --green-text: #A9D683; --green-soft: #243420;
+  --orange: #F2A057;--orange-text: #F6B27A;--orange-soft: #43301D;
+  --dusk: #C48BD1;  --dusk-text: #D9A9E4;  --dusk-soft: #3A2641;
+  --warn-bg: #4A3A17; --warn-fg: #FFD58A;
+  --ok-bg: #243420; --ok-fg: #B6E08E;
+  --no-bg: #4A2622; --no-fg: #FFB4A8;
+  --on-accent: #111111;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font); font-size: 18px; line-height: 1.7;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 56px;
+}
+.wrap { max-width: 860px; margin-inline: auto; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.3; margin: 0; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; border-radius: 4px; }
+
+/* nav */
+.nav {
+  position: sticky; top: 0; z-index: 15; background: var(--bg); border-bottom: 1px solid var(--line);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding-inline: max(16px, env(safe-area-inset-left, 0px));
+}
+.nav ul { display: flex; gap: 8px; list-style: none; margin: 0 auto; padding: 10px 0; max-width: 860px; overflow-x: auto; }
+.nav a {
+  display: block; white-space: nowrap; text-decoration: none; font-weight: 700; font-size: 17px;
+  padding: 8px 16px; border-radius: 999px; border: 2px solid var(--c); color: var(--ct); min-height: 44px;
+}
+.nav a:hover { background: var(--cs); }
+.d1 { --c: var(--sea); --ct: var(--sea-text); --cs: var(--sea-soft); }
+.d2 { --c: var(--green); --ct: var(--green-text); --cs: var(--green-soft); }
+.d3 { --c: var(--orange); --ct: var(--orange-text); --cs: var(--orange-soft); }
+.d4 { --c: var(--dusk); --ct: var(--dusk-text); --cs: var(--dusk-soft); }
+.d0 { --c: var(--muted); --ct: var(--fg); --cs: var(--line); }
+
+/* hero */
+.hero { padding-block: 44px 28px; }
+.hero small { display: block; font-weight: 700; color: var(--sea-text); letter-spacing: .08em; font-size: 16px; }
+.hero h1 { font-size: clamp(2.2rem, 8vw, 3.4rem); font-weight: 900; margin-block: 6px 14px; }
+.hero p.lead { font-size: 1.15rem; color: var(--muted); max-width: 34em; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 22px; }
+.fact { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+.fact b { display: block; font-size: 14px; color: var(--muted); font-weight: 500; }
+.fact span { font-size: 1.15rem; font-weight: 700; }
+.notice { margin-top: 18px; background: var(--warn-bg); color: var(--warn-fg); border-radius: 12px; padding: 14px 18px; font-size: 16.5px; }
+
+/* overview */
+.overview { margin-top: 36px; }
+.overview h2, section.plain h2 { font-size: clamp(1.4rem, 5vw, 1.8rem); font-weight: 900; border-bottom: 4px solid var(--c); padding-bottom: 8px; margin-bottom: 18px; }
+.legend { display: flex; gap: 8px 14px; flex-wrap: wrap; margin-top: 12px; font-size: 15px; color: var(--muted); }
+
+/* day */
+.day { margin-top: 56px; }
+.day-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; border-bottom: 4px solid var(--c); padding-bottom: 10px; }
+.day-head .n { font-size: 1.1rem; font-weight: 900; color: var(--on-accent); background: var(--c); padding: 2px 14px; border-radius: 999px; }
+.day-head h2 { font-size: clamp(1.5rem, 5.5vw, 2rem); font-weight: 900; }
+.day-head .area { color: var(--muted); font-size: 1rem; }
+
+.photos { display: grid; grid-template-columns: 3fr 2fr; gap: 12px; margin: 18px 0 0; }
+.photos figure { margin: 0; min-width: 0; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; border-bottom: 4px solid var(--c); }
+.photos .main { grid-row: span 2; }
+.photos .frame { flex: 1; min-height: 160px; overflow: hidden; background: var(--cs); }
+.photos .main .frame { min-height: 260px; }
+.photos img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.photos figcaption { padding: 10px 14px 12px; font-size: 16px; line-height: 1.5; }
+.photos figcaption b { display: block; font-weight: 700; }
+.photos figcaption small { display: block; margin-top: 2px; color: var(--muted); font-size: 13.5px; }
+@media (max-width: 560px) { .photos { grid-template-columns: 1fr; } .photos .main { grid-row: auto; } .photos .frame, .photos .main .frame { min-height: 0; aspect-ratio: 4 / 3; } }
+
+.theme { margin-top: 16px; font-size: 1.12rem; }
+.timeline { list-style: none; margin: 20px 0 0; padding: 0; }
+.timeline li { display: grid; grid-template-columns: 74px 1fr; gap: 6px 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.timeline time { font-weight: 900; font-size: 1.2rem; color: var(--ct); font-variant-numeric: tabular-nums; }
+.timeline .what { min-width: 0; }
+.timeline h3 { font-size: 1.18rem; font-weight: 700; }
+.timeline .desc { margin-top: 2px; }
+.timeline .meta { color: var(--muted); font-size: 16px; margin-top: 4px; }
+.timeline li.rest h3 { font-weight: 500; color: var(--muted); }
+@media (max-width: 480px) { .timeline li { grid-template-columns: 1fr; } }
+.tag { display: inline-block; font-size: 14px; font-weight: 700; padding: 0 10px; border-radius: 999px; margin-left: 6px; vertical-align: 2px; line-height: 1.7; white-space: nowrap; }
+.tag.opt { background: var(--cs); color: var(--ct); }
+.tag.chk { background: var(--warn-bg); color: var(--warn-fg); }
+.tag.ok { background: var(--ok-bg); color: var(--ok-fg); }
+.tag.no { background: var(--no-bg); color: var(--no-fg); }
+.tag.alt { background: var(--cs); color: var(--ct); }
+
+.spots { margin-top: 20px; display: grid; gap: 10px; }
+.spot { background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 10px; padding: 14px 18px; }
+.spot h3 { font-size: 1.1rem; font-weight: 700; }
+.spot dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px 14px; margin: 8px 0 0; font-size: 16px; }
+.spot dt { color: var(--muted); }
+.spot dd { margin: 0; min-width: 0; }
+
+details.more { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+details.more summary { cursor: pointer; padding: 14px 18px; font-weight: 700; font-size: 1.05rem; min-height: 48px; color: var(--ct); }
+details.more[open] summary { border-bottom: 1px solid var(--line); }
+details.more .in { padding: 6px 18px 14px; }
+details.more h4 { margin: 14px 0 4px; font-size: 1rem; color: var(--muted); font-weight: 700; }
+details.more ul { margin: 0; padding: 0; list-style: none; }
+details.more li { padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 16.5px; }
+details.more li:last-child { border-bottom: 0; }
+details.more li b { font-weight: 700; }
+details.more li span.note { color: var(--muted); display: block; font-size: 15.5px; }
+
+/* sections */
+section.plain { margin-top: 64px; }
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 16.5px; }
+th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 15px; color: var(--muted); font-weight: 700; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.box h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.box ul { margin: 0; padding-left: 1.2em; }
+.box li { margin-block: 4px; }
+.sub { margin-top: 28px; font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+.note-p { margin-top: 12px; color: var(--muted); font-size: 16px; }
+.todo { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.todo li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px 10px 44px; position: relative; }
+.todo li::before { content: ""; position: absolute; left: 14px; top: 17px; width: 18px; height: 18px; border: 2px solid var(--muted); border-radius: 4px; }
+.src { font-size: 15.5px; color: var(--muted); }
+.src h3 { font-size: 1.02rem; color: var(--fg); margin: 14px 0 4px; }
+.src ul { margin: 0; padding-left: 1.2em; }
+.src li { margin-block: 3px; }
+footer { margin-top: 64px; color: var(--muted); font-size: 15px; }
+.theme-btn { margin-top: 14px; font: inherit; font-size: 15px; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; min-height: 44px; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <small>JEJU · 2026 겨울</small>
+  <h1>제주 4일 여행</h1>
+  <p class="lead">무리하지 않고, 편안하게, 즐겁게. 계단 없이 걷고, 가성비 좋은 향토 음식을 먹고, 조용한 바다 앞에서 사진을 남기는 3박 4일입니다.</p>
+  <div class="facts">
+    <div class="fact"><b>인원</b><span>10명 (80대 어르신 포함)</span></div>
+    <div class="fact"><b>기간</b><span>3박 4일</span></div>
+    <div class="fact"><b>예산</b><span>1인 약 50만원</span></div>
+    <div class="fact"><b>숙소·이동</b><span>호텔 · 승합차</span></div>
+  </div>
+  <p class="notice"><b>초안입니다.</b> 여행 날짜, 항공 시간, 숙소 위치가 아직 정해지지 않아 모든 시간은 가정입니다. <b>확인 필요</b>로 표시된 곳은 전화로 확인한 뒤 확정합니다.</p>
+</header>
+
+<nav class="nav" aria-label="바로가기">
+  <ul>
+    <li><a class="d1" href="#day1">1일차</a></li>
+    <li><a class="d2" href="#day2">2일차</a></li>
+    <li><a class="d3" href="#day3">3일차</a></li>
+    <li><a class="d4" href="#day4">4일차</a></li>
+    <li><a class="d0" href="#req">요구사항</a></li>
+    <li><a class="d0" href="#cost">비용</a></li>
+    <li><a class="d0" href="#prep">준비물·날씨</a></li>
+    <li><a class="d0" href="#todo">확인 목록</a></li>
+  </ul>
+</nav>
+
+<section class="overview d0">
+  <h2>한눈에 보기</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>일차</th><th>권역</th><th>오전</th><th>점심</th><th>오후 · 카페</th></tr></thead>
+      <tbody>
+        <tr><td><a href="#day1">1일차</a></td><td>이호 · 도두</td><td>공항 도착, 렌터카</td><td>착한집 (갈치조림)</td><td>이호테우해변, 무지개해안도로, 외도339</td></tr>
+        <tr><td><a href="#day2">2일차</a></td><td>애월 · 한림 · 협재</td><td>한림공원</td><td>한림 바다생각</td><td>협재해변, 바다위에코끼리</td></tr>
+        <tr><td><a href="#day3">3일차</a></td><td>서귀포 · 중문</td><td>동백 정원</td><td>예원이네 중문본점</td><td>중문 전망, 휴일로</td></tr>
+        <tr><td><a href="#day4">4일차</a></td><td>제주시 · 공항</td><td>국립제주박물관</td><td>자매국수 등</td><td>듀 포레(선택), 공항</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<main id="days"></main>
+
+<section class="plain d0" id="req">
+  <h2>우리 여행의 약속 (요구사항)</h2>
+  <p class="note-p" style="margin-top:0;margin-bottom:14px">일정은 아래 조건에 맞춰 만들었습니다. 필수는 반드시 지키고, 희망은 가능하면 지킵니다.</p>
+  <div class="cols">
+    <div class="box"><h3>기본 조건</h3><ul>
+      <li>4일(3박), 총 10명</li>
+      <li>80대 어르신 포함, 평균 연령 50세 이상</li>
+      <li>예산 1인 약 50만원 (항공비 포함 여부 미정)</li>
+      <li>제주의 호텔 또는 편안한 숙소</li>
+      <li>렌터카(승합차) 또는 버스로 이동</li>
+      <li>식사는 현지 식당 이용</li>
+    </ul></div>
+    <div class="box"><h3>꼭 지키기 (필수)</h3><ul>
+      <li>모든 장소는 <b>계단 없이</b> 이용</li>
+      <li>하루 주요 관광지 3곳 이하</li>
+      <li>장시간 걷기, 등산, 급경사 제외</li>
+      <li>하루 1회 이상 카페·휴식</li>
+      <li>식당은 10명이 함께 앉을 수 있어야 함</li>
+      <li>승합차 주차 가능</li>
+      <li>피곤하면 관광지를 생략할 수 있음</li>
+      <li>4일차는 공항에 출발 2시간 전 도착</li>
+      <li>확인 안 된 정보는 사실처럼 쓰지 않음</li>
+    </ul></div>
+    <div class="box"><h3>가능하면 (희망)</h3><ul>
+      <li>조용하고 한적한 분위기</li>
+      <li>사진 찍기 좋은 곳, 촬영 시간</li>
+      <li>가성비 좋은 맛집, 제주 향토 음식</li>
+      <li>바다 전망 카페, 정원형 카페</li>
+      <li>같은 권역끼리 묶어 이동 최소화</li>
+      <li>화장실·벤치가 있는 곳</li>
+      <li>휠체어·보행 보조기 이용 가능</li>
+    </ul></div>
+    <div class="box"><h3>제외한 것</h3><ul>
+      <li>등산, 오름 (예: 도두봉)</li>
+      <li>동굴 (한림공원 내)</li>
+      <li>계단이 많은 곳 (용연구름다리 등은 보류)</li>
+      <li>혼잡한 곳은 짧게만 (동문시장)</li>
+    </ul></div>
+    <div class="box"><h3>조심할 조건</h3><ul>
+      <li>겨울은 해가 일찍 지고 바닷바람이 셈</li>
+      <li>착한집은 수요일 휴무</li>
+      <li>국립제주박물관은 월요일 휴관</li>
+      <li>서귀포 쪽은 이동이 김</li>
+    </ul></div>
+  </div>
+  <h3 class="sub">조건이 부딪히면</h3>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>부딪히는 경우</th><th>이렇게 정합니다</th></tr></thead>
+      <tbody>
+        <tr><td>가성비 vs 단체석·계단 없음</td><td>필수인 계단 없음과 10명 좌석이 먼저, 가성비는 그다음</td></tr>
+        <tr><td>경치 vs 걷기 부담</td><td>차창 감상이나 짧은 산책을 우선</td></tr>
+        <tr><td>맛집 vs 동선</td><td>맛집을 위해 장거리 이동은 하지 않음</td></tr>
+        <tr><td>3일차 이동 vs 숙소</td><td>서귀포 쪽 1박 또는 일정 축소 중 선택 (미정)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="plain d0" id="cost">
+  <h2>예상 비용</h2>
+  <p class="note-p" style="margin-top:0;margin-bottom:14px">1인 약 50만원이 목표입니다. 아래는 항목만 정리한 것이고, 금액은 날짜와 출발지가 정해진 뒤 채웁니다.</p>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>항목</th><th>내용</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td>항공</td><td>출발지·날짜 미정. 예산에 넣을지 결정 필요</td><td><span class="tag chk">미정</span></td></tr>
+        <tr><td>숙박</td><td>3박, 객실 수와 가격 미정. 가장 큰 변수</td><td><span class="tag chk">미정</span></td></tr>
+        <tr><td>렌터카</td><td>승합차 대여료, 유류비, 보험</td><td><span class="tag chk">확인 필요</span></td></tr>
+        <tr><td>식비</td><td>가성비 식당 위주. 식당별 1인 가격 조사 필요 (갈치조림 1인 17,000원부터 같은 정보만 있음)</td><td><span class="tag chk">확인 필요</span></td></tr>
+        <tr><td>입장료</td><td>한림공원, 동백 정원 등. 경로(65세 이상) 할인 확인. 국립제주박물관 상설전은 무료</td><td><span class="tag chk">확인 필요</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note-p">항공비를 포함하면 1인 50만원은 빠듯할 수 있습니다.</p>
+</section>
+
+<section class="plain d0" id="prep">
+  <h2>준비물과 날씨 대비</h2>
+  <div class="cols">
+    <div class="box"><h3>꼭 챙기기</h3><ul>
+      <li>방한 외투, 바람막이, 모자, 장갑</li>
+      <li>복용 중인 약, 상비약</li>
+      <li>지팡이 등 보행 보조 도구</li>
+      <li>신분증 (경로 할인 확인용)</li>
+    </ul></div>
+    <div class="box"><h3>비·강풍이 오면</h3><ul>
+      <li>1일차: 해변은 줄이고 카페와 숙소에서 휴식</li>
+      <li>2일차: 한림공원 대신 국립제주박물관</li>
+      <li>3일차: 동백 정원은 날씨를 보고 연기</li>
+    </ul></div>
+    <div class="box"><h3>눈·한파가 오면</h3><ul>
+      <li>서귀포 이동을 취소</li>
+      <li>제주시 안에서 실내 관람과 식사</li>
+      <li>일정을 줄임</li>
+    </ul></div>
+    <div class="box"><h3>피곤하실 때</h3><ul>
+      <li>어느 관광지든 생략할 수 있습니다</li>
+      <li>숙소 휴식을 매일 오후에 넣었습니다</li>
+      <li>병원·약국은 숙소가 정해지면 안내</li>
+    </ul></div>
+  </div>
+</section>
+
+<section class="plain d0" id="todo">
+  <h2>확정 전 확인할 것</h2>
+  <ul class="todo">
+    <li>여행 날짜, 항공 시간, 출발지</li>
+    <li>숙소 위치 (가장 중요), 1곳 또는 2곳</li>
+    <li>예산에 항공비를 포함하는지, 1인 식비 상한</li>
+    <li>승합차 대여 방법과 운전하실 분</li>
+    <li>어르신의 보행 상태(휠체어 필요 여부), 못 드시는 음식</li>
+    <li>모든 장소의 계단 유무와 장애인 화장실 (전화 확인)</li>
+    <li>식당 10명 예약, 영업시간, 휴무일</li>
+    <li>카페 1순위 4곳의 1층 좌석, 단차, 10명 좌석, 승합차 주차</li>
+    <li>이호·도두 카페, 중문 전망 장소 추가 조사</li>
+    <li>3일차 귤밭·동백 사진, 4일차 박물관 사진</li>
+  </ul>
+</section>
+
+<section class="plain d0 src" id="src">
+  <h2>조사 출처</h2>
+  <p>2026-11-26에 블로그, 여행·맛집 사이트, 뉴스 기사로 조사했습니다. 영업시간, 가격, 휴무일은 바뀔 수 있으니 방문 전에 전화로 확인하세요.</p>
+  <h3>1일차</h3><ul>
+    <li><a href="https://www.jeju.com/blog/spots-jeju-airport-city-attractions" target="_blank" rel="noopener">제주공항 근처 가볼만한곳 10곳</a></li>
+    <li><a href="https://v.daum.net/v/20260727151642953" target="_blank" rel="noopener">제주 해수욕장은 '모두를 위한' 무장애 공간으로 '변신 중'</a></li>
+    <li><a href="https://www.ktriptips.com/kor/tourspot/2792565" target="_blank" rel="noopener">목마등대 (이호테우등대)</a></li>
+    <li><a href="https://brunch.co.kr/@easystep/64" target="_blank" rel="noopener">제주 이호테우 해변 근처 맛집 지도 2026년</a></li>
+    <li><a href="https://www.siksinhot.com/P/968714" target="_blank" rel="noopener">시식신 맛집 정보</a></li>
+  </ul>
+  <h3>2일차</h3><ul>
+    <li><a href="https://www.jeju.com/blog/jeju-west-day-itinerary" target="_blank" rel="noopener">부모님 제주 서쪽 하루 코스</a></li>
+    <li><a href="https://brunch.co.kr/@dasauto/71" target="_blank" rel="noopener">제주 애월, 한림 맛집 지도 총정리편-2026</a></li>
+    <li><a href="https://www.telltrip.com/domestic-travel/jeju-aewol-handam-coastal-walking-trail/" target="_blank" rel="noopener">애월 한담 해안산책로</a></li>
+    <li><a href="https://www.yugacrew.com/crewletter/hallim-places-to-visit" target="_blank" rel="noopener">한림 가볼만한 곳</a></li>
+  </ul>
+  <h3>3일차</h3><ul>
+    <li><a href="https://www.vegannews.co.kr/news/article.html?no=391320" target="_blank" rel="noopener">서귀포 치유의 숲 무장애 길과 일반 숲길</a></li>
+    <li><a href="https://www.jnuri.net/mobile/article.html?no=69944" target="_blank" rel="noopener">전국장애인체전 기념 서귀포 공영 관광지 무료 개방</a></li>
+    <li><a href="https://www.ktriptips.com/kor/food/2783381" target="_blank" rel="noopener">예원이네 은갈치조림</a></li>
+    <li><a href="https://hotplacehunter.co.kr/?p=62334" target="_blank" rel="noopener">제주 서귀포 맛집 BEST5</a></li>
+    <li><a href="https://www.yugacrew.com/crewletter/jeju-winter-places" target="_blank" rel="noopener">제주 겨울 가볼만한 곳</a></li>
+    <li><a href="https://www.jeju.com/blog/jeju-camellia-spots" target="_blank" rel="noopener">제주 동백 명소</a></li>
+  </ul>
+  <h3>4일차</h3><ul>
+    <li><a href="https://www.mcst.go.kr/kor/s_culture/culture/cultureView.jsp?pSeq=71068" target="_blank" rel="noopener">국립제주박물관 안내 (문화체육관광부)</a></li>
+    <li><a href="https://www.jeju.com/blog/restaurants-jeju-airport-haejangguk" target="_blank" rel="noopener">제주공항 근처 맛집 11곳</a></li>
+    <li><a href="https://brunch.co.kr/@easystep/63" target="_blank" rel="noopener">신제주, 노형동 근처 맛집 지도</a></li>
+    <li><a href="https://www.gqkorea.co.kr/?p=374876" target="_blank" rel="noopener">제주 여행 시작과 끝을 장식할, 공항 근처 카페 5</a></li>
+  </ul>
+  <h3>사진</h3>
+  <p>모든 사진은 위키미디어 커먼즈의 무료 라이선스(CC BY, CC BY-SA, CC0) 사진입니다. 촬영자와 라이선스는 사진 아래에 적었습니다. 사진은 분위기를 전하기 위한 것이라 실제 방문지와 다를 수 있습니다.</p>
+</section>
+
+<footer>
+  <p>확인되지 않은 정보는 사실로 쓰지 않았고 "확인 필요"로 표시했습니다.</p>
+  <button class="theme-btn" id="themeBtn" type="button">밝게 / 어둡게 바꾸기</button>
+</footer>
+</div>
+
+<script>
+const IMG = 'images/';
+const COMMONS = 'https://commons.wikimedia.org/wiki/File:';
+const P = (path, title, note, by, lic, file, pos) => ({ path, title, note, by, lic, file, pos });
+const T = { chk: '확인 필요', ok: '채택', no: '제외', alt: '대안', opt: '선택' };
+const DAYS = [
+  { id: 1, cls: 'd1', title: '도착과 바다 산책', area: '제주시 서쪽 · 이호 · 도두',
+    theme: '공항에서 가까운 곳에서 시작합니다. 갈치조림으로 첫 식사를 하고, 해가 지기 전에 바다를 보고 카페에서 쉽니다.',
+    photos: [
+      P('day1/day1-airport.jpg', '제주국제공항', '야자수가 있는 도착 승강장', 'Kimhs5400', 'CC BY 4.0', 'Jejuairport2024.jpg', '50% 60%'),
+      P('day1/day1-iho-beach.jpg', '이호테우해변', '잔잔한 모래사장과 바다', 'Grapesurgeon', 'CC BY-SA 4.0', 'Iho_Tewoo_Beach_04.jpg', '50% 70%'),
+      P('day1/day1-boardwalk.jpg', '해변 옆 평평한 데크길', '계단 없이 걷기 좋은 길', 'Grapesurgeon', 'CC BY-SA 4.0', 'Iho_Tewoo_Beach_10.jpg', '50% 60%')],
+    rows: [
+      ['11:00', '제주공항 도착', '짐을 찾고 렌터카를 받습니다.', '승합차 예약 필요', ''],
+      ['12:00', '착한집 점심', '갈치조림, 고등어구이. 공항에서 차로 3~5분.', '수요일 휴무, 15~17시 브레이크타임 · 064-713-7136', 'chk'],
+      ['13:30', '숙소 체크인과 휴식', '짐을 두고 쉽니다.', '숙소 위치 미정', 'rest'],
+      ['15:00', '이호테우해변 · 목마등대', '바다와 말 모양 등대. 약 30~40분.', '무료 주차장과 화장실 있음 · 계단 확인 필요', 'chk'],
+      ['16:00', '무지개해안도로', '차에서 잠깐 내려 사진. 도두봉은 오르지 않습니다.', '주차·화장실 확인 필요', 'chk'],
+      ['16:40', '외도339 카페', '바다가 보이는 테라스에서 휴식.', '09~22시, 주차 가능 · 1층 좌석, 단체석 확인 필요', 'chk'],
+      ['18:00', '저녁 식사', '이금돈지 제주공항 본점 등. 갈치조림은 2인분부터.', '단체석 확인 필요', 'chk'],
+      ['19:30', '숙소 휴식', '겨울은 해가 일찍 져서 야외 일정은 17:30 전에 마칩니다.', '', 'rest']
+    ],
+    spots: [
+      ['이호테우해변 · 목마등대', [['체류', '30~40분'], ['주차·화장실', '무료 주차장, 화장실 있음'], ['걷기 부담', '낮음 (예상)'], ['계단', '확인 필요'], ['주의', '겨울 바닷바람. 장애인 화장실 확인 필요']]],
+      ['무지개해안도로', [['체류', '20~30분'], ['주차·화장실', '확인 필요'], ['걷기 부담', '확인 필요'], ['주의', '도두봉은 계단과 경사가 있어 오르지 않습니다']]]
+    ],
+    more: {
+      spots: [
+        ['이호테우해변 · 목마등대', 'ok', '무료 주차장, 화장실. 주차장에서 해변까지 거리가 짧고 진입로가 정비됨(2026년 기사).'],
+        ['도두 무지개해안도로', 'ok', '공항에서 차로 약 10분. 접근성 정보는 못 찾음.'],
+        ['용담해안도로 · 용두암', 'alt', '차창 드라이브 위주. 주차·화장실·계단 정보 못 찾음.'],
+        ['도두봉', 'no', '작은 오름이지만 등산 코스. 계단과 경사 가능성이 높음.']
+      ],
+      food: [
+        ['착한집 (오라삼동 서광로 98)', 'ok', '갈치조림, 고등어구이. 넓은 주차, 단체석. 수요일 휴무, 브레이크타임 15~17시.'],
+        ['이금돈지 제주공항 본점 (노연로 143)', 'alt', '갈치조림 1인 17,000원부터(2인 이상). 주차장 넓음. 단체석 확인 필요.'],
+        ['임금님밥상 (노형동 오광로 128)', 'alt', '생선구이백반. 주차 15대. 08:30~15:00이라 저녁 불가, 매월 둘째·넷째 주 수요일 휴무.'],
+        ['충민정 (남성로 26-1)', 'alt', '직접 발라주는 갈치구이, 순살 갈치조림. 가성비 호불호 후기.'],
+        ['자매국수 (이호동)', 'alt', '갈치조림정식, 고등어구이, 고기국수. 주차 넓음. 소규모에 적합.']
+      ],
+      cafe: [
+        ['외도339 (외도동)', 'ok', '탁 트인 테라스, 09~22시, 주차 가능. 주차장 규모·단체석·1층 확인 필요. 이호·도두 안의 카페는 추가 조사 필요.']
+      ]
+    } },
+  { id: 2, cls: 'd2', title: '서쪽 정원과 비양도 바다', area: '애월 · 한림 · 협재',
+    theme: '한림공원의 평지 구간을 천천히 보고, 협재에서 비양도 풍경을 즐깁니다. 한림공원이 힘드시면 일부만 보셔도 됩니다.',
+    photos: [
+      P('day2/day2-hyeopjae.jpg', '협재해변과 비양도', '맑은 청록빛 바다 너머 비양도', 'Lcarrion88', 'CC BY-SA 4.0', 'Hyeopjae_Beach_Scenery.jpg', '50% 60%'),
+      P('day2/day2-hallim-path.jpg', '한림공원 산책길', '평평하게 포장된 길 (여름 초록 풍경)', 'Grapesurgeon', 'CC BY-SA 4.0', 'Hallim_Park_29.jpg', '50% 60%')],
+    rows: [
+      ['08:30', '호텔 조식', '천천히 출발 준비를 합니다.', '', 'rest'],
+      ['09:30', '한림공원', '정원과 야자수 길 위주. 약 90~120분.', '휠체어 무료 대여 · 겨울 09~16:30 (확인 필요) · 동굴은 가지 않습니다', 'chk'],
+      ['11:30', '한림 바다생각 점심', '갈치조림, 고등어구이. 한림항 근처.', '단체석, 주차, 영업시간 확인 필요', 'chk'],
+      ['13:00', '협재해변', '차에서 내려 비양도 풍경만 보고 사진. 모래 위는 걷지 않습니다.', '겨울 모래 상태 확인 필요', 'chk'],
+      ['14:00', '바다위에코끼리 카페', '비양도가 보이는 카페에서 휴식.', '주차 가능 · 단체석, 입구 단차 확인 필요 · 대안 비양놀', 'chk'],
+      ['15:30', '숙소 복귀와 휴식', '', '', 'rest'],
+      ['18:00', '저녁 식사', '숙소 근처에서 먹습니다.', '후보 미정', 'chk']
+    ],
+    spots: [
+      ['한림공원', [['체류', '90~120분'], ['편의', '휠체어 무료 대여, 물품보관함'], ['걷기 부담', '중간 (대여로 완화)'], ['계단', '구역별 확인 필요'], ['주의', '동굴은 제외, 힘드시면 일부만']]],
+      ['협재해변', [['체류', '30분'], ['주차', '여러 곳, 비교적 넓음'], ['걷기 부담', '낮음~중간 (모래)'], ['주의', '전망 위주로 보고 사진만']]]
+    ],
+    more: {
+      spots: [
+        ['한림공원', 'ok', '휠체어 무료 대여. 11~1월 09:00~16:30. 블로그에 따르면 동굴은 휠체어 구간에서 제외.'],
+        ['협재해수욕장', 'ok', '주차장 여러 곳. 겨울 모래 상태와 접근성은 못 찾음. 수상 휠체어는 이호테우만 확인됨.'],
+        ['애월 한담해안산책로 (약 1.2km)', 'alt', '평탄하고 유모차 가능하다는 후기. 주차장이 좁다는 후기와 요금 정보 불일치. 승합차 주차 확인 필요.'],
+        ['곽지과물해변', 'alt', '한담 산책의 종점. 주차장 있음.'],
+        ['오설록 티뮤지엄 (안덕)', 'alt', '한림에서 멀어 동선에 넣을지 보류. 접근성 확인 못 함.']
+      ],
+      food: [
+        ['한림 바다생각 (한림항)', 'ok', '갈치조림, 전복물회, 고등어구이. 현지 가성비 평. 단체석·주차 확인 필요.'],
+        ['협재 수우동 (협재 백사장 옆)', 'alt', '창가에서 비양도가 보이는 우동집. 따뜻한 국물.'],
+        ['애월 은혜전복', 'alt', '전복 중심 향토 한 상. 가격·단체석 확인 필요.'],
+        ['협재 삼춘네 횟집', 'no', '1인 약 15,000원 세트 후기가 있으나 한 페이지에 폐점 표시. 영업 확인 전까지 제외.'],
+        ['몸국', 'chk', '서쪽 권역에서 파는 곳을 찾지 못함 (제주시 제주옥만 확인).']
+      ],
+      cafe: [
+        ['바다위에코끼리 (협재1길 27-6)', 'ok', '비양도 전망, 주차 가능, 남녀 구분 화장실. 단체석·단차 확인 필요.'],
+        ['비양놀 (한림해안로 311)', 'alt', '평수포구 앞, 비양도 일몰 명소, 주차 가능. 출입구 단차 확인 필요.'],
+        ['비선루 (협재1길 47-1)', 'alt', '통유리 바다 조망. 바로 앞 주차 없음(근처 주차).'],
+        ['비마이게스트 (한림로 406)', 'no', '주차 불가 표기.']
+      ]
+    } },
+  { id: 3, cls: 'd3', title: '겨울 동백과 남쪽 바다', area: '서귀포 · 중문',
+    theme: '이동이 가장 긴 날입니다. 동백 정원 한 곳과 점심, 카페로 간단히 구성했습니다. 날씨나 컨디션에 따라 줄이거나 쉬어도 좋습니다.',
+    photos: [
+      P('day3/day3-tea-fields.jpg', '남쪽 제주의 녹차밭', '서귀포 안덕 일대 풍경 (이번 일정에는 없는 곳, 분위기 사진)', 'lumoplank', 'CC0', 'O%27Sulloc_Tea_Fields,_Jeju_-_Osulloc2565.jpg', '50% 60%'),
+      P('day3/day3-dol-hareubang.jpg', '돌하르방', '제주의 상징 (서울 국립민속박물관 전시, 분위기 사진)', 'Ethan Doyle White', 'CC BY-SA 4.0', 'Dol-hareubang_from_Jeju_Island_at_the_National_Folk_Museum_of_Korea.jpg', '50% 30%')],
+    rows: [
+      ['08:30', '호텔 조식과 출발', '이동이 길어 일찍 나섭니다.', '', 'rest'],
+      ['10:00', '동백 정원', '휴애리 또는 카멜리아힐 중 한 곳. 약 90분.', '제주시에서 약 1시간 안팎 · 휠체어 대여 가능 · 계단·경사 확인 후 확정', 'chk'],
+      ['12:30', '예원이네 은갈치조림 점심', '갈치조림, 전복뚝배기. 단체석과 주차 있음.', '10명 예약 필수', 'chk'],
+      ['14:00', '중문 해안 전망', '전망만 보는 짧은 코스.', '장소 미정', 'chk'],
+      ['15:00', '휴일로 카페', '바다 앞 야외 공간에서 휴식.', '자체 주차장 · 1층, 단체석, 거리 확인 필요', 'chk'],
+      ['16:00', '숙소로 출발', '차 안에서 편히 쉽니다. 해가 지기 전에 이동합니다.', '약 1시간', 'rest'],
+      ['18:00', '저녁 식사', '흑돼지 후보: 숙성도 노형본관 등.', '단체 예약, 가격 확인 필요', 'chk']
+    ],
+    spots: [
+      ['휴애리 / 카멜리아힐 (한 곳 선택)', [['체류', '약 90분'], ['편의', '두 곳 모두 휠체어 대여 가능'], ['운영', '휴애리 동절기 09~18시 (입장 마감 1시간 30분 전)'], ['걷기 부담', '중간 이상'], ['계단', '확인 필요']]]
+    ],
+    more: {
+      spots: [
+        ['휴애리 자연생활공원', 'ok', '겨울 애기동백 절정, 토종 동백 시작이라는 글. 휠체어·유모차·지팡이 무료 대여. 동백 축제 일정은 공식 확인.'],
+        ['카멜리아힐', 'alt', '휠체어 대여, 주차 무료. 경로 8,000원(출처마다 다름). 한 자료에 접근성 "Very Difficult" 표기(의미 불명확). 휴애리와 둘 중 하나만.'],
+        ['서귀포 치유의 숲', 'alt', '관광약자용 무장애 나눔길(노고록)이 별도로 있음. 이용 가능 구간은 공식 안내 확인.'],
+        ['천지연폭포', 'alt', '공영 관광지. 평지 여부·경사 정보 못 찾아 후순위.'],
+        ['중문 해안 전망', 'chk', '접근성 정보 못 찾음. 장소 미정.']
+      ],
+      food: [
+        ['예원이네 은갈치조림 중문본점 (색달중앙로 49)', 'ok', '갈치조림, 갈치구이, 전복뚝배기. 단체석, 약 10대 주차.'],
+        ['중문 고등어쌈밥 (상예동 일주서로 1240)', 'alt', '통고등어구이, 전복죽·전복돌솥밥. 주차 가능.'],
+        ['삼보식당 (서귀포 시내)', 'alt', '갈치조림, 고등어구이, 전복죽. 맞은편 넓은 주차장. 짜다는 후기.'],
+        ['부뚜막식당 (서귀포 시내)', 'alt', '갈치조림(소) 39,000원 (2023년 기사 기준).'],
+        ['흑돼지 자투리구이식당 (서귀동)', 'alt', '자투리구이 24,000원. 전용 주차장 없음.']
+      ],
+      cafe: [
+        ['휴일로 (안덕면)', 'ok', '자체 주차장, 앞이 바다, 09~20:30. 1층·단체석 확인 필요.'],
+        ['허니문하우스 (중문)', 'alt', '바다 전망, 넓은 부지. 주차장에서 건물까지 걸어야 함.'],
+        ['뷰스트 (사계)', 'no', '단체석은 있으나 좌석이 2~3층.'],
+        ['바다바라 (중문)', 'no', '주차 어렵고 오르막 계단이 많다는 후기.'],
+        ['서귀피안 베이커리 (섭지코지)', 'no', '단체석·주차는 좋으나 중문에서 멀음.']
+      ]
+    } },
+  { id: 4, cls: 'd4', title: '여유로운 마무리', area: '제주시 · 공항',
+    theme: '실내 관람과 점심 후 공항으로 갑니다. 공항에는 출발 2시간 전에 도착하는 것을 기준으로 했습니다.',
+    photos: [
+      P('day4/day4-sunset-1.jpg', '제주의 저녁 노을', '여행을 마무리하는 하늘 (분위기 사진)', 'mia!', 'CC BY-SA 2.0', 'Jeju_Island_sunset1.jpg', '50% 72%'),
+      P('day4/day4-sunset-2.jpg', '붉게 물든 하늘', '', 'mia!', 'CC BY-SA 2.0', 'Jeju_Island_sunset2.jpg', '50% 62%')],
+    rows: [
+      ['08:30', '호텔 조식과 체크아웃', '짐을 차에 싣습니다.', '', 'rest'],
+      ['10:00', '국립제주박물관', '상설전 무료. 김영갑 사진전. 60~90분.', '월요일 휴관 · 휠체어·엘리베이터 확인 필요 · 064-720-8000', 'chk'],
+      ['12:00', '점심', '자매국수의 고기국수, 흑돼지 등.', '1일차 식사와 중복 확인', 'chk'],
+      ['12:50', '듀 포레 카페', '바다와 공항이 함께 보이는 카페. 비행 시간이 빠듯하면 생략합니다.', '단체석, 주차 가능 · 10~21시 · 옥상 계단 확인', 'opt'],
+      ['13:40', '선물 구매', '공항 판매점 또는 동문시장.', '동문시장은 혼잡', ''],
+      ['14:30', '렌터카 반납', '', '반납 위치 확인 필요', 'chk'],
+      ['15:00', '공항 도착', '체크인하고 쉽니다.', '', 'rest'],
+      ['17:00', '출발', '', '실제 항공 시간 미정', 'chk']
+    ],
+    spots: [
+      ['국립제주박물관', [['체류', '60~90분'], ['주차', '전용 주차장 무료'], ['운영', '화~일 09~18시, 월요일 휴관'], ['걷기 부담', '낮음~중간 (실내)'], ['계단', '확인 필요']]]
+    ],
+    more: {
+      spots: [
+        ['국립제주박물관', 'ok', '상설전 무료, 전용 주차장 무료. 화~일 09~18시, 월요일 휴관. 김영갑 기증 사진전(무료). 접근성은 문의 064-720-8000.'],
+        ['용담해안도로 · 용두암', 'alt', '차창 드라이브 위주. 용연구름다리는 계단·경사 때문에 보류.'],
+        ['동문시장', 'alt', '먹거리·기념품. 인파가 많아 10명이 이동하기에는 혼잡. 선택 방문.'],
+        ['이호테우해변 · 도두', 'alt', '1일차와 중복. 여유 시간에 재방문 가능.']
+      ],
+      food: [
+        ['자매국수 (이호동)', 'ok', '고기국수, 돔베고기. 흑돼지 600g(2인용) 69,000원(2026년 10월 확인 메뉴). 넓은 주차장.'],
+        ['우진해장국 (제주시)', 'alt', '고사리육개장. 06~22시. 길 건너 병문천 공영주차장.'],
+        ['원조 미풍해장국 본점 (삼도동)', 'alt', '해장국 11,000원. 전용 주차장 없음.'],
+        ['올래국수 본점', 'alt', '고기국수. 일요일 휴무, 오후 3시까지.'],
+        ['고국수 (용담이동)', 'alt', '고기국수. 공항에서 약 7분.'],
+        ['숙성도 노형본관 (노형동)', 'alt', '흑돼지. 단체 예약·가격 확인 못 함.'],
+        ['도두동 물회', 'chk', '출발 전 식사로 언급되나 구체 식당 정보 부족. 겨울 물회는 어르신께 맞는지 고려.']
+      ],
+      cafe: [
+        ['듀 포레 (용담삼동 서해안로 579)', 'ok', '오션뷰와 공항뷰, 베이커리. 주차 가능, 단체석, 10~21시. 옥상 이용은 계단 확인.'],
+        ['시로코', 'alt', '공항에서 약 7분. 전용 주차장 넉넉. 비행기가 낮게 지나가 건물이 더 보인다는 후기.'],
+        ['홉히', 'alt', '조용한 분위기. 주차는 맞은편 어영공원 공영주차장(무료)을 이용, 도로 횡단 필요.'],
+        ['외도339', 'alt', '무료 주차, 오션뷰. 용담·도두보다 서쪽.']
+      ]
+    } }
+];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const list = items => `<ul>${items.map(i => `<li><b>${esc(i[0])}</b> <span class="tag ${i[1]}">${T[i[1]]}</span><span class="note">${esc(i[2])}</span></li>`).join('')}</ul>`;
+document.getElementById('days').innerHTML = DAYS.map(d => `
+<section class="day ${d.cls}" id="day${d.id}">
+  <div class="day-head"><span class="n">${d.id}일차</span><h2>${esc(d.title)}</h2><span class="area">${esc(d.area)}</span></div>
+  <div class="photos">
+    ${d.photos.map((p, i) => `<figure${i === 0 && d.photos.length > 2 ? ' class="main"' : ''}>
+      <div class="frame"><img src="${IMG}${p.path}" alt="${esc(p.title)}" loading="lazy" style="object-position:${p.pos}"></div>
+      <figcaption><b>${esc(p.title)}</b>${p.note ? esc(p.note) : ''}<small>사진 ${esc(p.by)} · <a href="${COMMONS}${p.file}" target="_blank" rel="noopener">${esc(p.lic)}</a> · 위키미디어 커먼즈</small></figcaption>
+    </figure>`).join('')}
+  </div>
+  <p class="theme">${esc(d.theme)}</p>
+  <ol class="timeline">
+    ${d.rows.map(r => `<li class="${r[4] === 'rest' ? 'rest' : ''}">
+      <time>${r[0]}</time>
+      <div class="what"><h3>${esc(r[1])}${r[4] === 'chk' ? '<span class="tag chk">확인 필요</span>' : ''}${r[4] === 'opt' ? '<span class="tag opt">선택</span>' : ''}</h3>
+      ${r[2] ? `<p class="desc">${esc(r[2])}</p>` : ''}${r[3] ? `<p class="meta">${esc(r[3])}</p>` : ''}</div></li>`).join('')}
+  </ol>
+  <div class="spots">
+    ${d.spots.map(s => `<div class="spot"><h3>${esc(s[0])}</h3><dl>${s[1].map(x => `<dt>${esc(x[0])}</dt><dd>${esc(x[1])}</dd>`).join('')}</dl></div>`).join('')}
+  </div>
+  <details class="more"><summary>조사한 다른 후보 보기 (관광지 · 맛집 · 카페)</summary>
+    <div class="in"><h4>관광지</h4>${list(d.more.spots)}<h4>맛집</h4>${list(d.more.food)}<h4>카페</h4>${list(d.more.cafe)}</div>
+  </details>
+</section>`).join('');
+
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+});
+</script>
+</body>
+</html>
